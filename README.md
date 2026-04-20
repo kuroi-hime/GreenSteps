@@ -103,8 +103,14 @@ Pour que l'application soit sécurisée et personnalisée, nous distinguons troi
     * date_commentaire : Date de publication du commentaire.
 
 5. Design et Ergonomie (UX/UI)
-Charte graphique : Couleurs principales, typographies (à choisir après).
+- Charte graphique : 
+    * Couleurs principales
+    * typographies.
 
+- Technologies :
+    * Blade(Fontend).
+    * Laravel(Backend).
+    * MySQL(BDD).
 
 6. Planning et Livrables
 
@@ -115,3 +121,14 @@ Phase 2 : Développement Frontend.
 Phase 3 : Développement Backend.
 
 Phase 4 : Tests et Déploiement sur GitHub pages.
+
+## Bibliothèques :
+Breeze :
+```Bash
+
+```
+Blade :
+```Bash
+composer require ddfsn/blade-components
+php artisan vendor:publish --tag=blade-components-config
+```
