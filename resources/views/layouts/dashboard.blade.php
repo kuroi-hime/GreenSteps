@@ -65,9 +65,9 @@ tailwind.config = {
       <span class="material-symbols-outlined">category</span>
       <a href="{{ route('admin.categories.index') }}" class="block p-2">Categories</a>
     </div>
-    <div class="flex items-center gap-1 px-[0.6rem]">
+    <div class="flex items-center gap-1 px-[0.6rem]{{ request()->routeIs('admin.plantes.index') ? $classes:'' }}">
       <span class="material-symbols-outlined">potted_plant</span>
-      <a href="#" class="block p-2">Plants</a>
+      <a href="{{ Route('admin.plantes.index') }}" class="block p-2">Plants</a>
     </div>
     <div class="flex items-center gap-1 px-[0.6rem]">
       <span class="material-symbols-outlined">group</span>
