@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('suivi', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('jardin_id')->constrained('jardins');
-            $table->foreignId('plante_id')->constrained('plantes');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->boolean('is_blocked')->default(false);
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('suivi');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn(['is_blocked']);
+        });
     }
 };

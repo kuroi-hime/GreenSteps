@@ -57,9 +57,9 @@ tailwind.config = {
     @php
       $classes = " bg-secondary text-primary rounded-[0.5rem]";
     @endphp
-    <div class="flex items-center gap-1 px-[0.6rem]{{ request()->routeIs('dashboard') ? $classes:'' }}">
+    <div class="flex items-center gap-1 px-[0.6rem]{{ request()->routeIs('admin.dashboard') ? $classes:'' }}">
       <span class="material-symbols-outlined">dashboard</span>
-      <a href="{{ route('dashboard') }}" class="block p-2">Dashboard</a>
+      <a href="{{ route('admin.dashboard') }}" class="block p-2">Dashboard</a>
     </div>
     <div class="flex items-center gap-1 px-[0.6rem]{{ request()->routeIs('admin.categories.index') ? $classes:'' }}">
       <span class="material-symbols-outlined">category</span>
@@ -69,6 +69,7 @@ tailwind.config = {
       <span class="material-symbols-outlined">potted_plant</span>
       <a href="{{ Route('admin.plantes.index') }}" class="block p-2">Plants</a>
     </div>
+    {{--
     <div class="flex items-center gap-1 px-[0.6rem]">
       <span class="material-symbols-outlined">group</span>
       <a href="#" class="block p-2">Users</a>
@@ -77,6 +78,7 @@ tailwind.config = {
       <span class="material-symbols-outlined">comment</span>
       <a href="#" class="block p-2">Comments</a>
     </div>
+    --}}
   </nav>
 
   <!-- Profile + Deconnexion -->
@@ -100,7 +102,7 @@ tailwind.config = {
 </aside>
 
 <!-- ================= MAIN CONTENT ================= -->
-<main class="p-8 w-4/5">
+<main class="p-6 w-4/5">
   {{ $slot }}
 </main>
 

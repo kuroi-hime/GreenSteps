@@ -10,10 +10,10 @@
             </div>
 
             <!-- Add Button -->
-            <button id="add-category" class="bg-primary text-white px-4 py-2 rounded flex items-center">
+            <a href="{{ route('admin.categories.create') }}" id="add-category" class="bg-primary text-white px-4 py-2 rounded flex items-center">
                 <span class="material-symbols-outlined">add</span>
                 {{__('Add New Category')}}
-            </button>
+            </a>
         </div>
 
         <!-- Search + Filters -->
@@ -51,8 +51,8 @@
                         <td class="px-3 py-2 font-semibold truncate" title="{{ __($categorie->nom_categorie) }}">{{ __($categorie->nom_categorie) }}</td>
                         <td class="p-2 text-left truncate" title="{{ __($categorie->description_categorie) }}">{{ __($categorie->description_categorie) }}</td>
                         <td class="p-2 text-center">
-                            <span class="px-2 w-fit bg-green-100 text-green-600 rounded-full text-xs font-medium">
-                                {{ __('Active') }}
+                            <span class="px-2 w-fit bg-{{ $categorie->suivis()->exists() ? 'green' : 'yellow' }}-100 text-{{ $categorie->suivis()->exists() ? 'green' : 'yellow' }}-600 rounded-full text-xs font-medium">
+                                {{ __($categorie->suivis()->exists() ? 'Active' : 'Inactive') }}
                             </span>
                         </td>
                         <td class="p-2 flex flex-nowrap gap-2 justify-center">

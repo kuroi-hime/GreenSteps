@@ -15,6 +15,10 @@ class Plante extends Model{
         'days_to_recolte',
         'difficulte_plante',
         'categorie_id',
+        'height_plante',
+        'min_temp_plante',
+        'max_temp_plante',
+        'sunlight_plante',
     ];
 
     /**
@@ -23,5 +27,21 @@ class Plante extends Model{
     public function categorie()
     {
         return $this->belongsTo(Categorie::class);
+    }
+
+    /**
+     * 
+     */
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'imageable');
+    }
+
+    /**
+     * 
+     */
+    public function suivis()
+    {
+        return $this->hasMany(Suivi::class);
     }
 }

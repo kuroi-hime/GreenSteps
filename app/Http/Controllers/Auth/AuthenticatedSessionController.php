@@ -28,7 +28,18 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        $role = Auth::user()->role->nom_role;
+        switch ($role) {
+            case 'admin':
+                return redirect()->route('admin.dashboard');
+                break;
+            case 'jardinier':
+                return redirect()->route('home');
+                break;          
+            default:
+                Auth::logout();
+                return redirect()->route('login')->withErrors(['role' => 'Accès non autorisé.']);
+        }
     }
 
     /**
