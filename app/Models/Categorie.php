@@ -3,10 +3,12 @@ namespace App\Models;
 
 use App\Models\Suivi;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Categorie extends Model
 {
+    use SoftDeletes;
+    
     protected $fillable = [
         'nom_categorie',
         'description_categorie'
@@ -20,18 +22,6 @@ class Categorie extends Model
     {
         return $this->hasMany(Plante::class);
     }
-
-    /**
-     * 
-     */
-    // public function isActive()
-    // {
-    //     return DB::table('categories')
-    //                    ->join('plantes', 'categories.id', '=', 'plantes.categorie_id')
-    //                    ->join('suivi', 'plantes.id', '=', 'plante_id')
-    //                    ->where('categories.id', $this->id)
-    //                    ->count() ? 'Active': 'Inactive';
-    // }
 
     /**
      * 

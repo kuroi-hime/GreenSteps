@@ -25,7 +25,7 @@ class CategorieController extends Controller
      */
     public function create()
     {
-        return view('categories.create');
+        // 
     }
 
     /**
@@ -36,7 +36,7 @@ class CategorieController extends Controller
         $data = $request->validated();
         Categorie::create($data);
 
-        return redirect()->route('categories.index')->with('success', 'Catégorie créée avec succès.');
+        return redirect()->route('admin.categories.index')->with('success', 'Catégorie créée avec succès.');
     }
 
     /**
@@ -60,7 +60,9 @@ class CategorieController extends Controller
      */
     public function update(CategorieUpdateRequest $request, Categorie $categorie)
     {
-        //
+        $categorie->update($request->validated());
+
+        return back();
     }
 
     /**
@@ -68,6 +70,8 @@ class CategorieController extends Controller
      */
     public function destroy(Categorie $categorie)
     {
-        //
+        $categorie->delete();
+
+        return back();
     }
 }

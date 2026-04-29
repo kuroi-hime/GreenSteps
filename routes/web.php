@@ -20,7 +20,10 @@ Route::middleware(['auth'])//, 'role:admin'
     ->name('admin.')
     ->group(function () {
         // Categories
-        Route::resource('categories', CategorieController::class);
+        Route::get('/categories', [CategorieController::class, 'index'])->name('categories.index');
+        Route::post('/categories', [CategorieController::class, 'store'])->name('categories.store');
+        Route::delete('/categories/{categorie}', [CategorieController::class, 'destroy'])->name('categories.destroy');
+        Route::patch('/categories/{categorie}', [CategorieController::class, 'update'])->name('categories.edit');
         // Plantes
         Route::resource('plantes', PlanteController::class);
 
