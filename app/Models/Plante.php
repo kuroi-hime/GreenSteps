@@ -3,9 +3,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Plante extends Model{
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'nom_commun',
@@ -43,5 +44,13 @@ class Plante extends Model{
     public function suivis()
     {
         return $this->hasMany(Suivi::class);
+    }
+
+    /**
+     * 
+     */
+    public function etapes()
+    {
+        return $this->hasMany(Etape::class);
     }
 }

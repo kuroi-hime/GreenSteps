@@ -24,8 +24,14 @@ Route::middleware(['auth'])//, 'role:admin'
         Route::post('/categories', [CategorieController::class, 'store'])->name('categories.store');
         Route::delete('/categories/{categorie}', [CategorieController::class, 'destroy'])->name('categories.destroy');
         Route::patch('/categories/{categorie}', [CategorieController::class, 'update'])->name('categories.edit');
+        
         // Plantes
-        Route::resource('plantes', PlanteController::class);
+        // Route::resource('plantes', PlanteController::class);
+        Route::get('/plantes', [PlanteController::class, 'index'])->name('plantes.index');
+        Route::post('/plantes', [PlanteController::class, 'store'])->name('plantes.store');
+        Route::get('/plantes/{plante}', [PlanteController::class, 'edit'])->name('plantes.edit');
+        Route::put('/plantes/{plante}', [PlanteController::class, 'update'])->name('plantes.update');
+        Route::delete('/plantes/{plante}', [PlanteController::class, 'destroy'])->name('plantes.destroy');
 
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
