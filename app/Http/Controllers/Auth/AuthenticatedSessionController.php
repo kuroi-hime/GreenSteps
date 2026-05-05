@@ -29,12 +29,13 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         $role = Auth::user()->role->nom_role;
+        
         switch ($role) {
             case 'admin':
                 return redirect()->route('admin.dashboard');
                 break;
             case 'jardinier':
-                return redirect()->route('home');
+                return redirect()->intended(route('home', absolute: false));
                 break;          
             default:
                 Auth::logout();

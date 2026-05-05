@@ -23,6 +23,16 @@ class Plante extends Model{
     ];
 
     /**
+     * 
+     */
+    protected function casts()
+    {
+        return [
+            'max_temp_plante' => 'integer'
+        ];
+    }
+
+    /**
      * Get the plant's category
      */
     public function categorie()
@@ -53,4 +63,13 @@ class Plante extends Model{
     {
         return $this->hasMany(Etape::class);
     }
+
+    /**
+     * 
+     */
+    public function commentaires()
+    {
+        return $this->MorphMany(Commentaire::class, 'commentaireable');
+    }
+
 }

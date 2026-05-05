@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-// use App\Http\Requests\PlantStoreRequest;
 use App\Models\Categorie;
 use App\Models\Plante;
+use App\Models\Suivi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,9 +14,20 @@ class PlanteController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $plantes = Plante::with('images', 'categorie')->paginate(4);
+        $plantes = Plante::with('images', 'categorie')
+                        ->where('nom_commun', 'like', '%'.$request->search.'%');
+
+        if($request->filled('category'))
+            $plantes = $plantes->where('categorie_id', 'like', $request->category);
+
+        if($request->filled('sun'))
+            $plantes = $plantes->where('sunlight_plante', 'like', $request->sun);
+
+        if($request->filled('difficulty'))
+            $plantes = $plantes->where('difficulte_plante', 'like', $request->difficulty);
+
         $categories = Categorie::all();
 
         $user = Auth::user();
@@ -24,10 +35,15 @@ class PlanteController extends Controller
         if($user)
         {
             if($user->role->nom_role === 'admin')
+            {
+                $plantes = $plantes->paginate(4);
                 return view('plantes.index', compact('plantes', 'categories'));
+            }
         }
 
-        return view('plantes.client.index', compact('plantes')); 
+        $plantes = $plantes->paginate(8);
+
+        return view('plantes.client.index', compact('plantes', 'categories')); 
     }
 
     /**
@@ -98,9 +114,14 @@ class PlanteController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Plante $plant)
     {
-        //
+        $plant->load('commentaires');
+        $gardens = Suivi::where('plante_id', '=', $plant->id)
+              ->distinct('jardin_id')
+              ->count('jardin_id');
+
+        return view('plantes.client.details', compact('plant', 'gardens'));
     }
 
     /**

@@ -45,6 +45,6 @@ class User extends Authenticatable
      */
     public function jardin()
     {
-        return $this->hasOne(Jardin::class);
+        return $this->hasOne(Jardin::class, 'owner_id');
     }
 }

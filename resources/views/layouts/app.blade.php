@@ -1,3 +1,7 @@
+@php
+use Illuminate\Support\Facades\Auth;
+@endphp
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -21,7 +25,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+        <div class="min-h-screen flex flex-col bg-gray-100 dark:bg-gray-900">
             {{-- @include('layouts.navigation') --}}
 
             <!-- Header -->
@@ -36,13 +40,28 @@
                 <nav class="space-x-6 hidden md:block">
                     <a href="{{ route('home') }}" class="hover:text-[#157F3C]">Home</a>
                     <a href="{{ route('client.plantes.index') }}" class="hover:text-[#157F3C]">Plants</a>
-                    <a href="{{ route('home') }}" class="hover:text-[#157F3C]">Planting Calendar</a>
-                    <a href="{{ route('home') }}" class="hover:text-[#157F3C]">My Garden</a>
+                    {{--<a href="{{ route('home') }}" class="hover:text-[#157F3C]">Planting Calendar</a>--}}
+                    <a href="{{ route('client.my-garden.index') }}" class="hover:text-[#157F3C]">My Garden</a>
                 </nav>
 
-                <div class="space-x-3">
+                <div class="space-x-3 flex items-center">
+                    @auth
+                    <!-- profil -->
+                    <a href="{{ route('profile.edit') }}" class="size-10">
+                        <img src="https://api.dicebear.com/7.x/initials/svg?seed={{ urlencode(Auth::user()->name) }}" 
+                        alt="{{ Auth::user()->name }}" class="size-10 rounded-full">
+                    </a>
+                    <!-- deconnexion -->
+                    <form method="post" action="{{route('logout')}}">
+                        <button class="bg-[#157F3C] text-white px-4 py-2 rounded-lg">
+                            {{ __('Log out') }}
+                        </button>
+                    </form>
+
+                    @else
                     <a href="{{ route('register') }}" class="text-[#157F3C]">Register</a>
                     <a href="{{ route('login') }}" class="bg-[#157F3C] text-white px-4 py-2 rounded-lg">Login</a>
+                    @endauth
                 </div>
             </header>
 
@@ -56,8 +75,11 @@
             @endisset --}}
 
             <!-- Page Content -->
-            <main>
+            <main class="flex flex-1">
+                @if(Auth::user() && Auth::user()->is_blocked)
+                @else
                 {{ $slot }}
+                @endif
             </main>
 
             <!-- Footer -->

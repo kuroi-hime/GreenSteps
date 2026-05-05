@@ -44,8 +44,18 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
+        // Création du jardin par defaut
+        // $user->jardins()->create([
+        //     'nom_jardin' => 'My Garden',
+        //     'description_jardin' => 'You\'re first default garden. You can change it\'s name and description.'
+        // ]);
+
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        $user->load('role');
+        
+        if($user->role->nom_role == 'admin')
+            return redirect()->intended(route('admin.dashboard', absolute: false));
+        return redirect()->intended(route('home', absolute: false));
     }
 }

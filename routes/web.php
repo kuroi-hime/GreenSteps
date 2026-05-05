@@ -41,10 +41,13 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::name('client.')->group(function (){
     // plantes
-    Route::resource('plantes', PlanteController::class);
+    // Route::resource('plantes', PlanteController::class);
+    Route::get('/plantes', [PlanteController::class, 'index'])->name('plantes.index');
+    Route::get('/plantes/{plant}', [PlanteController::class, 'show'])->name('plantes.show');
 
     // test
-    Route::resource('my-garden', JardinController::class);
+    Route::resource('my-garden', JardinController::class)->middleware('auth');
+    Route::post('/my-garden', [JardinController::class, 'addPlant'])->name('my-garden.add-plant')->middleware('auth');
     Route::resource('calendar', CalendarController::class);
 });
 

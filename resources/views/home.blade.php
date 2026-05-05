@@ -20,13 +20,13 @@
             </p>
 
             <!-- Search -->
-            <div class="flex mt-6 bg-white rounded-xl shadow p-2 max-w-md items-center">
+            <form method="get" action="{{ route('client.plantes.index') }}" class="flex mt-6 bg-white rounded-xl shadow p-2 max-w-md items-center">
                 <span class="material-symbols-outlined ml-2">search</span>
-                <input type="text" placeholder="Find a plant..." class="flex-1 px-3 border-none outline-none focus:ring-0 ">
+                <input type="text" name="search" placeholder="Find a plant..." class="flex-1 px-3 border-none outline-none focus:ring-0 ">
                 <button class="bg-green-600 text-white px-4 py-2 rounded-lg">Search</button>
-            </div>
+            </form>
 
-            <p class="mt-4 text-sm text-gray-500">Join 10,000+ happy gardeners</p>
+            <p class="mt-4 text-sm text-gray-500">Join {{$gardeners}}+ happy gardeners</p>
         </div>
 
         <!-- Image -->
@@ -54,7 +54,8 @@
                 @php $cmp++ @endphp
                 <!-- Card -->
                 <div class="categorie-card bg-white rounded-xl shadow overflow-hidden{{$cmp <= 4 ? '':' hidden'}}">
-                    <img src="" class="h-40 w-full object-cover">
+                    <img src="{{$categorie->plantes->first() ? ($categorie->plantes->first()->images->first() ? $categorie->plantes->first()->images->first()->path_image : asset('images/not-found_512.png')) : asset('images/not-found_512.png')}}" 
+                        class="h-40 w-full object-cover">
                     <div class="p-4">
                         <h4 class="font-semibold">{{$categorie->nom_categorie}}</h4>
                         {{--<p class="text-sm text-green-500">Purify your air</p>--}}

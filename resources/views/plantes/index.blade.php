@@ -102,6 +102,7 @@
               <img 
                 src="{{ $plante->images && $plante->images->first() ? $plante->images->first()->path_image : asset('images/not-found.png') }}" 
                 alt="image de plante" 
+                onerror="this.src = '{{ asset('images/not-found.png') }}'"
                 class="border size-12 rounded-lg object-cover flex-shrink-0"
               >
               <p class="text-wrap text-left font-medium">{{$plante->nom_commun}}</p>
